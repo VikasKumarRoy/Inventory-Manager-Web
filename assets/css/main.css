@@ -1,0 +1,141 @@
+.main-container {
+    width: auto;
+    height: auto;
+    padding: 0 10px;
+    margin-left: 50px;
+    line-height: 20px;
+    word-wrap: break-word;
+}
+
+.user-header {
+    cursor: pointer;
+    height: 64px;
+    padding: 4px;
+}
+
+.user-header:hover {
+    color:#fff;
+    background-color:#5fa2db;
+}
+
+.user-header .user-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+    border: 3px solid white;
+}
+
+.user-header .admin-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+    border: 3px solid #FFA500;
+}
+
+.user-header .user-name {
+    text-transform: uppercase;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    position:relative;
+    display:table-cell;
+    vertical-align:middle;
+    width:190px;
+    margin-top: 16px;
+    margin-left: 12px;
+}
+
+.legend {
+    padding-left: 50px;
+    position: fixed;
+    width: 10000px;
+    z-index: 10;
+    background-color: white;
+}
+
+.chip_accessory {
+    color: white;
+    background-color: #424242;
+}
+
+.chip_not_accessory {
+    background-color: #82B1FF;
+}
+
+.item-detail-list {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, minmax(300px, 300px));
+}
+
+.item-detail-card {
+    cursor: pointer;
+    transition: transform .2s;
+}
+
+.item-detail-card:hover {
+    transform: scale(1.1);
+}
+
+.desc-block{
+    display:block;
+    margin-top:5px;
+    color:#ea9e3a
+}
+
+.tabsdemoDynamicHeight md-content h1:first-child {
+    margin-top: 0;
+}
+
+.img-circle:hover{
+    transition: transform .25s ease;
+    transform: scale(1.1);
+}
+
+.search-box {
+    margin: 30px 30px 30px 570px;
+}
+
+.search-box-my-items {
+    margin: 30px 30px 30px 700px;
+}
+
+.search-box-group-list {
+    margin: 30px 30px 30px 250px;
+}
+
+.search-box-not-acknowledged {
+    margin: 30px 30px 30px 355px;
+}
+
+.constrained {
+    margin: 10px;
+    padding-left: 80px;
+    padding-right: 80px;
+    width: 1186px;
+    height: 500px;
+    overflow: auto;
+}
+
+.duration {
+    border: solid 2px;
+    border-color: #ed4337;
+}
+
+.div-disabled
+{
+  pointer-events: none;
+  opacity: 0.5;
+  background: #CCC;
+}
+
+md-toast.md-center {
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
+  }
+
+.page-header-custom {
+    padding-bottom: 9px;
+    margin: 10px 0 20px;
+    border-bottom: 1px solid #eeeeee;
+}
