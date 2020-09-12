@@ -1,0 +1,40 @@
+{
+  "name": "hardware-manager-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "karma start karma.conf.js",
+    "start": "http-server -a localhost -p 8081"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@code.jtg.tools:inductions/induction-2020/hardware-manager-web.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@angular/material": "^9.1.1",
+    "@uirouter/angularjs": "^1.0.25",
+    "angular": "^1.7.9",
+    "angular-animate": "^1.7.9",
+    "angular-aria": "^1.7.9",
+    "angular-cookies": "^1.7.9",
+    "angular-material": "^1.1.21",
+    "angular-messages": "^1.7.9",
+    "angular-mocks": "^1.7.9",
+    "angular-ui-bootstrap": "^2.5.6",
+    "angular-ui-router": "^1.0.24",
+    "bootstrap": "^3.1.1",
+    "http-server": "^0.12.1",
+    "lodash": "^4.17.15",
+    "restangular": "^1.6.1"
+  },
+  "devDependencies": {
+    "jasmine-core": "^3.5.0",
+    "karma": "^4.4.1",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-jasmine": "^3.1.1",
+    "ng-mocks": "^9.0.0"
+  }
+}
