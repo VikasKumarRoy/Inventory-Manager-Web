@@ -1,0 +1,48 @@
+<md-dialog>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>{{dialogName}}</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="assets/img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <div class="content-center">
+        <form name="form" role="form">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                        <label for="quantity">Quantity</label>
+                        <div class="input-group">
+                            <span class="input-group-addon" ng-click="!itemGroup.is_accessory || decrementQuantity()" >-</span>
+                            <input type="number" class="form-control" name="quantity" id="quantity" ng-model="quantity" ng-disabled="!itemGroup.is_accessory"/>
+                            <span class="input-group-addon" ng-click="!itemGroup.is_accessory || incrementQuantity()">+</span>
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <label for="duration">Request Duration</label>
+                            <input type="number" class="form-control" name="duration" id="duration" ng-model="duration" ng-disabled="selectedType == 15"/>
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <label for="type" ng-show="disableItemType">Type</label>
+                            <md-radio-group ng-model="selectedType" class="md-primary" id="type" name="type">
+                                <md-radio-button
+                                        ng-repeat="d in types" ng-value="d.code"
+                                        ng-disabled="itemGroup.is_accessory && !d.is_accessory"
+                                        ng-class="{'md-align-top-left': $index==1}">
+                                    {{ d.name }}
+                                    <span class="desc-block" ng-if="$index == 1">Shareable items are returnable also.</span>
+                                </md-radio-button>
+                            </md-radio-group>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" bi-click="submitItem()" ng-disabled="form.$invalid" class="btn btn-success">Submit</button>
+            </div>
+        </form>
+    </div>
+</md-dialog>

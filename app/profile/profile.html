@@ -1,0 +1,47 @@
+<br>
+<loading ng-if="loading"></loading>
+<div class="container" ng-if="!loading">
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-sm-10">
+                <h1>{{userDetails.first_name}} {{userDetails.last_name}}</h1>
+            </div>
+            <div class="col-sm-2"><a class="pull-right"><img alt="profile image" class="img-circle img-responsive" src="{{userDetails.profile_picture}}" title="Edit Profile Pic" ng-click="openEditProfilePicDialog($event)"/></a>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-4">
+                <ul class="list-group">
+                    <li class="list-group-item text-muted" contenteditable="false">Profile <span class="pull-right"><button ng-click="openEditProfileDialog($event)" type="button" class="btn btn-default btn-xs">Edit</button></span> </li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong class="">Email</strong></span>{{userDetails.email}}</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong class="">Joined</strong></span>{{userDetails.created_at | date | uppercase}}</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong class="">Organization</strong></span>{{userDetails.organization_name}}</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong class="">Full name</strong></span>{{userDetails.first_name}} {{userDetails.last_name}}</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong class="">Role</strong></span>{{getUserRole()}}</li>
+                    <li class="list-group-item text-right" ng-if="userDetails.gender"><span class="pull-left"><strong class="">Gender</strong></span>{{getUserGender()}}</li>
+                    <li class="list-group-item text-right" ng-if="userDetails.phone"><span class="pull-left"><strong class="">Phone</strong></span>{{userDetails.phone}}</li>
+                    <li class="list-group-item text-right" ng-if="userDetails.address"><span class="pull-left"><strong class="">Address</strong></span>{{userDetails.address}}</li>
+                    <li class="list-group-item text-right" ng-if="userDetails.date_of_birth"><span class="pull-left"><strong class="">DOB</strong></span>{{userDetails.date_of_birth}}</li>
+                </ul>
+            </div>
+            <div class="col-sm-4">
+                <ul class="list-group">
+                    <li class="list-group-item text-muted" contenteditable="false">Requests<span class="pull-right"><button type="button" class="btn btn-default btn-xs">{{myRequestStats.total}}</button></span></li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong class="">Pending</strong></span>{{myRequestStats.pending}}</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong class="">Approved</strong></span>{{myRequestStats.approved}}</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong class="">Cancelled</strong></span>{{myRequestStats.cancelled}}</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong class="">Rejected</strong></span>{{myRequestStats.rejected}}</li>
+                </ul>
+            </div>
+            <div class="col-sm-4">
+                <ul class="list-group">
+                    <li class="list-group-item text-muted" contenteditable="false">Approved<span class="pull-right"><button type="button" class="btn btn-default btn-xs">{{myApprovedStats.total}}</button></span></li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong class="">Pending</strong></span>{{myApprovedStats.pending}}</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong class="">Acknowledged</strong></span>{{myApprovedStats.acknowledged}}</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong class="">Returned</strong></span>{{myApprovedStats.returned}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

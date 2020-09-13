@@ -1,0 +1,43 @@
+<md-dialog>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Approve Request</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="assets/img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <empty ng-if="empty"></empty>
+    <md-content class="md-padding">
+        <div class="paginator-container-dialog" ng-if="pagination.totalItems">
+            <ul uib-pagination
+                template-url="node_modules/angular-ui-bootstrap/template/pagination/pagination.html"
+                ng-model="pagination.currentPage"
+                items-per-page="pagination.pageSize"
+                total-items="pagination.totalItems"
+                max-size="pagination.maxSize"
+                boundary-links="true"
+                ng-change="pageChanged()">
+            </ul>
+        </div>
+        <div class="input-group" ng-show="itemList.length && requestType != 15">
+            <label for="duration">Set Duration</label>
+            <input type="number" class="form-control" name="duration" id="duration" ng-disabled="role == 6" ng-model="data.approved_duration"/>
+        </div>
+        <div class="row">
+            <div class="col-sm-3" style="cursor: pointer; width: 160px; margin: 15px;" ng-repeat="num in listGridViewCol">
+                <div class="row" ng-repeat="item in itemList" ng-if="$index%4 == num" ng-click="toggle(item)">
+                    <ul class="list-group" ng-class="{'selected':item.id == selectedItemId}">
+                        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Quantity</strong></span>{{item.quantity}}</li>
+                        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Type</strong></span>{{item.type == 13 ? 'Shareable' : item.type == 14 ? 'Returnable' : 'Permanent'}}</li>
+                        <li class="list-group-item text-right" ng-repeat="feature in item.attributes">
+                            <span class="pull-left"><strong class="">{{feature.attribute_name}}</strong></span>{{feature.attribute_value}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </md-content>
+    <button type="submit" bi-click="approveItemRequest()" ng-disabled="selectedItemId == 0" ng-show="itemList.length > 0" class="btn btn-primary">Submit</button>
+</md-dialog>

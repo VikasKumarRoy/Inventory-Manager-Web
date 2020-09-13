@@ -1,0 +1,26 @@
+<md-dialog>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>{{dialogName}}</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="assets/img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <div class="content-center">
+        <form name="form" role="form">
+            <div class="form-group" ng-class="{ 'has-error': form.itemName.$dirty && form.itemName.$error.required }">
+                <label for="itemName">Item Name</label>
+                <input type="text" name="itemName" id="itemName" class="form-control" ng-model="itemGroup.item_name" required />
+                <span ng-show="form.itemName.$dirty && form.itemName.$error.required && form.itemName.$invalid" class="help-block">Item Name is required</span>
+            </div>
+            <div>
+                <md-checkbox ng-show="disableAccessory" ng-model="itemGroup.is_accessory" aria-label="Is Accessory">Accessory</md-checkbox>
+            </div>
+            <div class="form-actions">
+                <button type="submit" bi-click="addItemGroup()" ng-disabled="form.$invalid" class="btn btn-primary">{{submitName}}</button>
+            </div>
+        </form>
+    </div>
+</md-dialog>

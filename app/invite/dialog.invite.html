@@ -1,0 +1,38 @@
+<md-dialog>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>SEND INVITE</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="assets/img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <div class="content-center">
+        <form name="form" role="form">
+            <div class="form-group" ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" class="form-control" ng-model="userDetails.email" required />
+                <span ng-show="form.email.$dirty && form.email.$error.required && form.email.$invalid" class="help-block">Email is required</span>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error': form.firstName.$dirty && form.firstName.$error.required }">
+                <label for="firstName">First name</label>
+                <input type="text" name="firstName" id="firstName" class="form-control" ng-model="userDetails.first_name" required />
+                <span ng-show="form.firstName.$dirty && form.firstName.$error.required && form.firstName.$invalid" class="help-block">First name is required</span>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error': form.lastName.$dirty && form.lastName.$error }">
+                <label for="lastName">Last name</label>
+                <input type="text" name="lastName" id="lastName" class="form-control" ng-model="userDetails.last_name" required />
+                <span ng-show="form.lastName.$dirty && form.lastName.$error.required && form.lastName.$invalid" class="help-block">Last name is required</span>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error': form.role.$dirty && form.role.$invalid }">
+                <label for="role">Role</label>
+                <select ng-options="role as role.label for role in roles track by role.id" class="form-control" id="role" name="role" ng-model="selectedRole"></select>
+                <span ng-show="form.gender.$dirty && form.gender.$error.required && form.gender.$invalid" class="help-block">Role is invalid</span>
+            </div>
+            <div class="form-actions">
+                <button type="submit" bi-click="invite()" ng-disabled="form.$invalid" class="btn btn-primary">Invite</button>
+            </div>
+        </form>
+    </div>
+</md-dialog>

@@ -1,0 +1,43 @@
+<div class="main-container">
+    <loading ng-if="loading"></loading>
+    <md-content ng-if="!loading" class="md-padding">
+        <div style="display: flex; margin-left: 20px;">
+            <h3 class="md-display-1">{{itemGroupName}}</h3>
+            <div class="search-box">
+                <form class="form-inline mr-auto">
+                    <input class="form-control" type="text" placeholder="Search a feature name or value here" aria-label="Search" ng-model="search.word"/>
+                    <button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" bi-click="searchItemButton()">Search</button>
+                </form>
+            </div>
+        </div>
+        <empty ng-if="empty"></empty>
+        <div class="col-sm-3" style="cursor: pointer; width: 265px; margin: 15px;" ng-repeat="num in listGridViewCol">
+            <div class="row" ng-repeat="item in itemList" ng-if="$index%4 == num" ng-click="showHistory(item)" ng-class="{ 'div-disabled': item.is_assigned == true && is_accessory == false}">
+                <ul class="list-group">
+                    <li class="list-group-item text-right"><span class="pull-left"><strong class="">Created</strong></span>{{item.created_at | date:'dd MMM yyyy' | uppercase}}</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong class="">Quantity</strong></span>{{item.quantity}}</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong class="">Type</strong></span>{{item.type == 13 ? 'Shareable' : item.type == 14 ? 'Returnable' : 'Permanent'}}</li>
+                    <li class="list-group-item text-right" ng-repeat="feature in item.attributes">
+                        <span class="pull-left"><strong class="">{{feature.attribute_name}}</strong></span>{{feature.attribute_value}}
+                    </li>
+                    <li class="list-group-item text-right" ng-if="hasButtons">
+                        <button type="button" class="btn btn-primary btn-sm" ng-if="firstButtonShow" ng-click="firstButtonDialog($event, item); $event.stopPropagation();">{{firstButtonName}}</button>
+                        <button type="button" class="btn btn-danger btn-sm" ng-if="secondButtonShow" ng-click="secondButtonDialog($event, item); $event.stopPropagation();">{{secondButtonName}}</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </md-content>
+    
+    <div class="paginator-container" ng-if="pagination.totalItems">
+        <ul uib-pagination
+        template-url="node_modules/angular-ui-bootstrap/template/pagination/pagination.html"
+        ng-model="pagination.currentPage"
+        items-per-page="pagination.pageSize"
+        total-items="pagination.totalItems"
+        max-size="pagination.maxSize"
+        boundary-links="true"
+        ng-change="pageChanged()">
+        </ul>
+    </div>
+</div>

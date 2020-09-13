@@ -1,0 +1,322 @@
+<div class="main-container">
+
+    <md-content>
+
+        <input type="hidden" name="tabValue" ng-model="selectedTabIndex"/>
+        <md-tabs md-stretch-tabs="always" md-dynamic-height md-border-bottom md-selected="selectedTabIndex">
+
+            <md-tab label="approved" md-on-select="selectedTabIndex" ng-click="changeTab(selectedTabIndex)">
+                <md-content class="md-padding">
+                <div style="display: flex;">
+                    <div class="md-headline">All Approved Requests</div>
+                    <div class="search-box">
+                        <form style="float: right" class="form-inline mr-auto">
+                            <input class="form-control" type="text" placeholder="Search" aria-label="Search" ng-model="searchList[0].word"/>
+                            <button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" bi-click="searchButton()">Search</button>
+                        </form>
+                    </div>
+                </div>
+                <empty ng-if="emptyList[0]"></empty>
+                <loading ng-if="loadingList[0]"></loading>
+                <div ng-if="!loadingList[0]" >
+                    <div class="row">
+                        <div class="col-sm-4" style="cursor: pointer; width: 300px;" ng-repeat="request in requestList[0]">
+                            <ul class="list-group">
+                                <li class="list-group-item text-muted" contenteditable="false">
+                                    {{request.item_group_name}}
+                                    <span class="pull-right"><button type="button" class="btn btn-default btn-xs">{{request.current_status_date | date:'HH:mm / dd MMM' | lowercase}}</button></span>
+                                </li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Requested quantity</strong></span>{{request.quantity}}</li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Type</strong></span>{{request.type == 13 ? 'Shareable' : request.type == 14 ? 'Returnable' : 'Permanent'}}</li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Requested duration</strong></span>{{request.requested_duration == null ? "Permanently" : request.requested_duration + ' days'}}</li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Requested by</strong></span>{{request.requested_by_name}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </md-content>
+                <div class="paginator-container" ng-if="paginationList[0].totalItems">
+                    <ul uib-pagination
+                        template-url="node_modules/angular-ui-bootstrap/template/pagination/pagination.html"
+                        ng-model="paginationList[0].currentPage"
+                        items-per-page="paginationList[0].pageSize"
+                        total-items="paginationList[0].totalItems"
+                        max-size="paginationList[0].maxSize"
+                        boundary-links="true"
+                        ng-change="pageChanged()">
+                    </ul>
+                </div>
+            </md-tab>
+
+            <md-tab label="cancelled" md-on-select="selectedTabIndex" ng-click="changeTab(selectedTabIndex)">
+                <md-content class="md-padding">
+                <div style="display: flex;">
+                    <h3 class="md-headline">All Cancelled Requests</h3>
+                    <div class="search-box">
+                        <form style="float: right" class="form-inline mr-auto">
+                            <input class="form-control" type="text" placeholder="Search" aria-label="Search" ng-model="searchList[1].word"/>
+                            <button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" bi-click="searchButton()">Search</button>
+                        </form>
+                    </div>
+                </div>
+                <empty ng-if="emptyList[1]"></empty>
+                <loading ng-if="loadingList[1]"></loading>
+                <div ng-if="!loadingList[1]" >
+                    <div class="row">
+                        <div class="col-sm-4" style="cursor: pointer; width: 300px;" ng-repeat="request in requestList[1]">
+                            <ul class="list-group">
+                                <li class="list-group-item text-muted" contenteditable="false">
+                                    {{request.item_group_name}}
+                                    <span class="pull-right"><button type="button" class="btn btn-default btn-xs">{{request.current_status_date | date:'HH:mm / dd MMM' | lowercase}}</button></span>
+                                </li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Requested quantity</strong></span>{{request.quantity}}</li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Type</strong></span>{{request.type == 13 ? 'Shareable' : request.type == 14 ? 'Returnable' : 'Permanent'}}</li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Requested duration</strong></span>{{request.requested_duration == null ? "Permanently" : request.requested_duration + ' days'}}</li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Requested by</strong></span>{{request.requested_by_name}}</li>
+                            </ul>
+                        </div>
+                    </div>
+              </div>
+            </md-content>
+                <div class="paginator-container" ng-if="paginationList[1].totalItems">
+                <ul uib-pagination
+                template-url="node_modules/angular-ui-bootstrap/template/pagination/pagination.html"
+                ng-model="paginationList[1].currentPage"
+                items-per-page="paginationList[1].pageSize"
+                total-items="paginationList[1].totalItems"
+                max-size="paginationList[1].maxSize"
+                boundary-links="true"
+                ng-change="pageChanged()">
+                </ul>
+            </div>
+            </md-tab>
+
+            <md-tab label="rejected" md-on-select="selectedTabIndex" ng-click="changeTab(selectedTabIndex)">
+                <md-content class="md-padding">
+                <div style="display: flex;">
+                    <h3 class="md-headline">All Rejected Requests</h3>
+                    <div class="search-box">
+                        <form style="float: right" class="form-inline mr-auto">
+                            <input class="form-control" type="text" placeholder="Search" aria-label="Search" ng-model="searchList[3].word"/>
+                            <button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" bi-click="searchButton()">Search</button>
+                        </form>
+                    </div>
+                </div>
+                <empty ng-if="emptyList[2]"></empty>
+                <loading ng-if="loadingList[2]"></loading>
+                <div ng-if="!loadingList[2]" >
+                    <div class="row">
+                        <div class="col-sm-4" style="cursor: pointer; width: 300px;" ng-repeat="request in requestList[2]">
+                            <ul class="list-group">
+                                <li class="list-group-item text-muted" contenteditable="false">
+                                    {{request.item_group_name}}
+                                    <span class="pull-right"><button type="button" class="btn btn-default btn-xs">{{request.current_status_date | date:'HH:mm / dd MMM' | lowercase}}</button></span>
+                                </li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Requested quantity</strong></span>{{request.quantity}}</li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Type</strong></span>{{request.type == 13 ? 'Shareable' : request.type == 14 ? 'Returnable' : 'Permanent'}}</li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Requested duration</strong></span>{{request.requested_duration == null ? "Permanently" : request.requested_duration + ' days'}}</li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Requested by</strong></span>{{request.requested_by_name}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </md-content>
+                <div class="paginator-container" ng-if="paginationList[2].totalItems">
+                <ul uib-pagination
+                template-url="node_modules/angular-ui-bootstrap/template/pagination/pagination.html"
+                ng-model="paginationList[2].currentPage"
+                items-per-page="paginationList[2].pageSize"
+                total-items="paginationList[2].totalItems"
+                max-size="paginationList[2].maxSize"
+                boundary-links="true"
+                ng-change="pageChanged()">
+                </ul>
+            </div>
+            </md-tab>
+
+            <md-tab label="not acknowledged" md-on-select="selectedTabIndex" ng-click="changeTab(selectedTabIndex)">
+            <md-content class="md-padding">
+                <div style="display: flex; margin-left: 20px;">
+                    <h3 class="md-headline">All Approved Items waiting to get acknowledged</h3>
+                    <div class="search-box-not-acknowledged">
+                        <form style="float: right" class="form-inline mr-auto">
+                            <input class="form-control" type="text" placeholder="Search" aria-label="Search" ng-model="searchList[3].word"/>
+                            <button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" bi-click="searchButton()">Search</button>
+                        </form>
+                    </div>
+                </div>
+                <empty ng-if="emptyList[3]"></empty>
+                <loading ng-if="loadingList[3]"></loading>
+                <div ng-if="!loadingList[3]" >
+                    <div class="col-sm-3" style="cursor: pointer; width: 265px; margin: 15px;" ng-repeat="num in listGridViewCol">
+                        <div class="row" ng-repeat="request in requestList[3]" ng-if="$index%4 == num" ng-class="{duration: request.type != 15 && isDurationExceeded(request.current_status_date, request.approved_duration, 'pending')}">
+                            <ul class="list-group">
+                                <li class="list-group-item text-muted" contenteditable="false">
+                                                                {{request.item_group_name}}
+                                                                <span class="pull-right"><button type="button" class="btn btn-default btn-xs">{{request.current_status_date | date:'HH:mm / dd MMM' | lowercase}}</button></span>
+                                </li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Quantity</strong></span>{{request.quantity}}</li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Type</strong></span>{{request.type == 13 ? 'Shareable' : request.type == 14 ? 'Returnable' : 'Permanent'}}</li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Approved duration</strong></span>{{request.approved_duration == null ? "Permanently" : request.approved_duration + ' days'}}</li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Approved By</strong></span>{{request.approved_by_name}}</li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Approved To</strong></span>{{request.approved_to_name}}</li>
+                                <li class="list-group-item text-right" ng-repeat="feature in request.item_attributes">
+                                    <span class="pull-left"><strong class="">{{feature.attribute_name}}</strong></span>{{feature.attribute_value}}
+                                </li>
+                                <li class="list-group-item text-right" ng-if="request.type != 15">
+                                    <button type="button" class="btn btn-danger btn-sm" ng-if="isDurationExceeded(request.current_status_date, request.approved_duration, 'pending')" ng-click="reminderButtonDialog($event, request)">Send Reminder</button>
+                                    <button type="button" class="btn btn-danger btn-sm" ng-click="updateButtonDialog($event, request)">Update Duration</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </md-content>
+            <div class="paginator-container" ng-if="paginationList[3].totalItems">
+                <ul uib-pagination
+                template-url="node_modules/angular-ui-bootstrap/template/pagination/pagination.html"
+                ng-model="paginationList[3].currentPage"
+                items-per-page="paginationList[3].pageSize"
+                total-items="paginationList[3].totalItems"
+                max-size="paginationList[3].maxSize"
+                boundary-links="true"
+                ng-change="pageChanged()">
+                </ul>
+            </div>
+          </md-tab>
+
+            <md-tab label="active items" md-on-select="selectedTabIndex" ng-click="changeTab(selectedTabIndex)">
+            <md-content class="md-padding">
+                <div style="display: flex; margin-left: 20px;">
+                    <h3 class="md-headline">All Items currently with user</h3>
+                    <div class="search-box">
+                        <form style="float: right" class="form-inline mr-auto">
+                            <input class="form-control" type="text" placeholder="Search" aria-label="Search" ng-model="searchList[4].word"/>
+                            <button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" bi-click="searchButton()">Search</button>
+                        </form>
+                    </div>
+                </div>
+                <empty ng-if="emptyList[4]"></empty>
+                <loading ng-if="loadingList[4]"></loading>
+                <div ng-if="!loadingList[4]" >
+                    <div class="col-sm-3" style="cursor: pointer; width: 265px; margin: 15px;" ng-repeat="num in listGridViewCol">
+                        <div class="row" ng-repeat="request in requestList[4]" ng-if="$index%4 == num" ng-class="{duration: request.type != 15 && isDurationExceeded(request.current_status_date, request.approved_duration, 'acknowledged')}">
+                            <ul class="list-group">
+                                <li class="list-group-item text-muted" contenteditable="false">
+                                    {{request.item_group_name}}
+                                    <span class="pull-right"><button type="button" class="btn btn-default btn-xs">{{request.current_status_date | date:'HH:mm / dd MMM' | lowercase}}</button></span>
+                                </li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Quantity</strong></span>{{request.quantity}}</li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Type</strong></span>{{request.type == 13 ? 'Shareable' : request.type == 14 ? 'Returnable' : 'Permanent'}}</li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Approved duration</strong></span>{{request.approved_duration == null ? "Permanently" : request.approved_duration + ' days'}}</li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Approved By</strong></span>{{request.approved_by_name}}</li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Approved To</strong></span>{{request.approved_to_name}}</li>
+                                <li class="list-group-item text-right" ng-repeat="feature in request.item_attributes">
+                                    <span class="pull-left"><strong class="">{{feature.attribute_name}}</strong></span>{{feature.attribute_value}}
+                                </li>
+                                <li class="list-group-item text-right" ng-if="request.type != 15">
+                                    <button type="button" class="btn btn-danger btn-sm" ng-if="isDurationExceeded(request.current_status_date, request.approved_duration, 'acknowledged')" ng-click="reminderButtonDialog($event, request)">Send Reminder</button>
+                                    <button type="button" class="btn btn-danger btn-sm" ng-click="updateButtonDialog($event, request)">Update Duration</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                  </div>
+            </md-content>
+            <div class="paginator-container" ng-if="paginationList[4].totalItems">
+                <ul uib-pagination
+                template-url="node_modules/angular-ui-bootstrap/template/pagination/pagination.html"
+                ng-model="paginationList[4].currentPage"
+                items-per-page="paginationList[4].pageSize"
+                total-items="paginationList[4].totalItems"
+                max-size="paginationList[4].maxSize"
+                boundary-links="true"
+                ng-change="pageChanged()">
+                </ul>
+            </div>
+          </md-tab>
+
+            <md-tab label="returned items" md-on-select="selectedTabIndex" ng-click="changeTab(selectedTabIndex)">
+            <md-content class="md-padding">
+                <div style="display: flex; margin-left: 20px;">
+                    <h3 class="md-headline">All Returned Items</h3>
+                    <div class="search-box">
+                        <form style="float: right" class="form-inline mr-auto">
+                            <input class="form-control" type="text" placeholder="Search" aria-label="Search" ng-model="searchList[5].word"/>
+                            <button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" bi-click="searchButton()">Search</button>
+                        </form>
+                    </div>
+                </div>
+                <empty ng-if="emptyList[5]"></empty>
+                <loading ng-if="loadingList[5]"></loading>
+                <div ng-if="!loadingList[5]" >
+                    <div class="col-sm-3" style="cursor: pointer; width: 265px; margin: 15px;" ng-repeat="num in listGridViewCol">
+                        <div class="row" ng-repeat="request in requestList[5]" ng-if="$index%4 == num">
+                            <ul class="list-group">
+                                <li class="list-group-item text-muted" contenteditable="false">
+                                    {{request.item_group_name}}
+                                    <span class="pull-right"><button type="button" class="btn btn-default btn-xs">{{request.current_status_date | date:'HH:mm / dd MMM' | lowercase}}</button></span>
+                                </li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Quantity</strong></span>{{request.quantity}}</li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Type</strong></span>{{request.type == 13 ? 'Shareable' : request.type == 14 ? 'Returnable' : 'Permanent'}}</li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Approved duration</strong></span>{{request.approved_duration == null ? "Permanently" : request.approved_duration + ' days'}}</li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Approved By</strong></span>{{request.approved_by_name}}</li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Returned By</strong></span>{{request.approved_to_name}}</li>
+                                <li class="list-group-item text-right" ng-repeat="feature in request.item_attributes">
+                                    <span class="pull-left"><strong class="">{{feature.attribute_name}}</strong></span>{{feature.attribute_value}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </md-content>
+            <div class="paginator-container" ng-if="paginationList[5].totalItems">
+                <ul uib-pagination
+                template-url="node_modules/angular-ui-bootstrap/template/pagination/pagination.html"
+                ng-model="paginationList[5].currentPage"
+                items-per-page="paginationList[5].pageSize"
+                total-items="paginationList[5].totalItems"
+                max-size="paginationList[5].maxSize"
+                boundary-links="true"
+                ng-change="pageChanged()">
+                </ul>
+            </div>  
+          </md-tab>
+
+          <md-tab label="stats" md-on-select="selectedTabIndex" ng-click="changeTab(selectedTabIndex)">
+            <md-content class="md-padding">
+                <div style="display: flex; margin-left: 20px;">
+                    <h3 class="md-headline">All requests stats</h3>
+                </div>
+                <empty ng-if="emptyList[6]"></empty>
+                <loading ng-if="loadingList[6]"></loading>
+                <div ng-if="!loadingList[6]" >
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <ul class="list-group">
+                                <li class="list-group-item text-muted" contenteditable="false">Requests<span class="pull-right"><button type="button" class="btn btn-default btn-xs">{{allRequestStats.total}}</button></span></li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Pending</strong></span>{{allRequestStats.pending}}</li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Approved</strong></span>{{allRequestStats.approved}}</li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Cancelled</strong></span>{{allRequestStats.cancelled}}</li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Rejected</strong></span>{{allRequestStats.rejected}}</li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4">
+                            <ul class="list-group">
+                                <li class="list-group-item text-muted" contenteditable="false">Approved<span class="pull-right"><button type="button" class="btn btn-default btn-xs">{{allApprovedStats.total}}</button></span></li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Not Acknowledged</strong></span>{{allApprovedStats.pending}}</li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Active Items</strong></span>{{allApprovedStats.acknowledged}}</li>
+                                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Returned Items</strong></span>{{allApprovedStats.returned}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </md-content>
+
+            </md-tab>
+
+        </md-tabs>
+
+    </md-content>
+
+</div>

@@ -1,0 +1,74 @@
+<div class="main-container">
+    <loading ng-if="loading"></loading>
+    <div class="container" ng-if="!loading">
+        <div class="page-header-custom" style="display: flex;">
+            <h1 id="timeline">History</h1>
+            <div style="margin-left: 500px;" class="form-group">
+                <div>
+                    <h4>Select range</h4>
+                    <md-datepicker ng-model="date.startDate" md-placeholder="Enter start date"></md-datepicker>
+                    <md-datepicker ng-model="date.endDate" md-placeholder="Enter end date"></md-datepicker>
+                    <button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" bi-click="setDateRangeButton()">Apply</button>
+                    <button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" bi-click="clearDateRangeButton()">Clear</button>
+                </div>
+            </div>
+        </div>
+        <empty ng-if="empty"></empty>
+        <div class="constrained">
+            <div infinite-scroll='pageChanged()'
+                 infinite-scroll-container='".constrained"'
+                 infinite-scroll-disabled="loadingPaginated">
+                <ul class="timeline">
+                    <li ng-repeat="history in historyList" ng-class="$index%2 !== 0 ? 'timeline-inverted' : '' ">
+                        <div class="timeline-badge">
+                            <img alt="User Image" ng-src="{{ history.approved_to.profile_picture==null ? 'http://placehold.jp/3d4070/3d4070/150x150.png': 'http://127.0.0.1:8000' + history.approved_to.profile_picture }}" style="width: 50px; height: 50px; border-radius: 100px;">
+                            <button type="button" class="btn btn-default btn-xs">{{mSplit(history.approved_to.full_name, 0)}}</button>
+                        </div>
+                        <div class="timeline-panel">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item text-right">
+                                    <span class="pull-left">
+                                        <strong class="">{{history.created_at | date | uppercase}}</strong>
+                                    </span><i class="glyphicon glyphicon-time"></i>
+                                    {{history.created_at | date: 'H:mm' | uppercase}}
+                                </li>
+                                <li class="list-group-item text-right">
+                                    <span class="pull-left"><strong class="">Item group name</strong></span>
+                                    {{history.item.item_group_name}}
+                                </li>
+                                <li class="list-group-item text-right">
+                                    <span class="pull-left"><strong class="">Status</strong></span>
+                                    {{history.status == 10 ? 'Approved' : (history.status == 11 ? 'Acknowledged' : 'Returned')}}
+                                </li>
+                                <li class="list-group-item text-right">
+                                    <span class="pull-left"><strong class="">
+                                        {{history.status == 10 ? 'Approved to' : (history.status == 11 ? 'Acknowledged by' : 'Returned by')}}
+                                    </strong></span>
+                                    {{history.approved_to.full_name}}
+                                    ( {{history.approved_to.role == 4 ? 'Admin' : ( history.approved_to.role == 5 ? 'Manager' : 'User' )}} )
+                                </li>
+                                <li class="list-group-item text-right" ng-if="history.status == 10">
+                                    <span class="pull-left"><strong class="">Approved by</strong></span>
+                                    {{history.approved_by.full_name}}
+                                    ( {{history.approved_by.role == 4 ? 'Admin' : ( history.approved_by.role == 5 ? 'Manager' : 'User' )}} )
+                                </li>
+                                <li class="list-group-item text-right">
+                                    <span class="pull-left"><strong class="">Approved quantity</strong></span>
+                                    {{history.approved_quantity}}
+                                </li>
+                                <li class="list-group-item text-right">
+                                    <span class="pull-left"><strong class="">Requested duration</strong></span>
+                                    {{history.requested_duration}} days
+                                </li>
+                                <li class="list-group-item text-right">
+                                    <span class="pull-left"><strong class="">Approved duration</strong></span>
+                                    {{history.approved_duration}} days
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

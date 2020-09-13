@@ -1,0 +1,32 @@
+<div class="area"></div>
+<nav class="main-menu">
+    <ul>
+        <li>
+            <div class="user-header" ng-click="openProfile($event)">
+                <div style="display: flex;">
+                    <img alt="User Image" src="{{userDetails.profile_picture}}" class="(userDetails.role == 4 || userDetails.role == 5) ? admin-image : user-image">
+                    <div class="user-name">{{userDetails.first_name}} {{userDetails.last_name}}</div>
+                </div>
+            </div>
+        </li>
+        <li ng-repeat="item in sidebarItems" ng-click="openTab($event, item)">
+            <a>
+                <i class="{{item.icon}}"></i>
+                <span class="nav-text">
+                    {{item.name}}
+                </span>
+            </a>
+        </li>
+    </ul>
+    <ul class="logout">
+        <li>
+            <a ng-click="logout()">
+                <i class="fa fa-power-off fa-2x"></i>
+                <span class="nav-text">
+            LOGOUT
+            </span>
+            </a>
+        </li>
+    </ul>
+</nav>
+<div ui-view></div>

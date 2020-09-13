@@ -1,0 +1,47 @@
+<div class="main-container">
+  <loading ng-if="loading"></loading>
+  <md-content ng-if="!loading" class="md-padding">
+    <div style="display: flex; margin-left: 20px;">
+      <h3 class="md-display-1">Manage Requests</h3>
+      <div class="search-box">
+        <form class="form-inline mr-auto">
+          <input class="form-control" type="text" placeholder="Search" aria-label="Search" ng-model="search.word"/>
+          <button class="btn btn-mdb-color btn-rounded btn-sm my-0 ml-sm-2" type="submit" bi-click="searchItemGroupButton()">Search</button>
+        </form>
+      </div>
+    </div>
+    <empty ng-if="empty"></empty>
+    <div class="row">
+      <div class="col-sm-4" style="cursor: pointer; width: 300px;" ng-repeat="request in requestList">
+        <ul class="list-group">
+          <li class="list-group-item text-muted" contenteditable="false">
+            {{request.item_group_name}}
+            <span class="pull-right"><button type="button" class="btn btn-default btn-xs">{{request.created_at | date:'dd MMM yyyy' | lowercase}}</button></span>
+          </li>
+          <li class="list-group-item text-right"><span class="pull-left"><strong class="">Requested quantity</strong></span>{{request.quantity}}</li>
+          <li class="list-group-item text-right"><span class="pull-left"><strong class="">Requested by</strong></span>{{request.requested_by_name}}</li>
+          <li class="list-group-item text-right"><span class="pull-left"><strong class="">Type</strong></span>{{request.type == 13 ? "Shareable" : request.type == 14 ? "Returnable" : "Permanent"}}</li>
+          <li class="list-group-item text-right"><span class="pull-left"><strong class="">Requested duration</strong></span>{{request.requested_duration == null ? "Permanently" : request.requested_duration + ' days'}}</li>
+          <li class="list-group-item text-right">
+            <button type="button" class="btn btn-primary btn-sm" ng-click="approveButtonDialog($event, request)">APPROVE</button>
+            <button type="button" class="btn btn-danger btn-sm" ng-click="rejectButtonDialog($event, request)">REJECT</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="paginator-container" ng-if="pagination.totalItems">
+      <ul uib-pagination
+      template-url="node_modules/angular-ui-bootstrap/template/pagination/pagination.html"
+      ng-model="pagination.currentPage"
+      items-per-page="pagination.pageSize"
+      total-items="pagination.totalItems"
+      max-size="pagination.maxSize"
+      boundary-links="true"
+      ng-change="pageChanged()">
+      </ul>
+    </div>
+    
+
+  </md-content>
+</div>

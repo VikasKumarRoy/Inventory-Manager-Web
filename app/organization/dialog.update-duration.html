@@ -1,0 +1,23 @@
+<md-dialog>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Update Approved Duration</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="assets/img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <div class="content-center">
+        <form name="form" role="form">
+            <div class="form-group" ng-class="{ 'has-error': form.duration.$dirty && data.approved_duration <= 0 }">
+                <label for="Duration">Duration</label>
+                <input type="number" min="1" name="duration" id="duration" class="form-control" ng-model="data.approved_duration" required />
+                <span ng-show="form.duration.$dirty && form.duration.$error.required && form.duration.$invalid" class="help-block">Cant be blank or negative</span>
+            </div>
+            <div class="form-actions">
+                <button type="submit" bi-click="updateDuration()" ng-disabled="form.$invalid" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</md-dialog>

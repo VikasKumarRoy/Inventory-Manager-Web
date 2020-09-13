@@ -1,0 +1,50 @@
+<md-dialog>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Edit profile</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="assets/img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <div class="content-center">
+        <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+        <div class="col-md-6 col-md-offset-3">
+            <form name="form" role="form">
+                <div class="form-group" ng-class="{ 'has-error': form.firstName.$dirty && form.firstName.$error }">
+                    <label for="firstName">First name</label>
+                    <input type="text" name="firstName" id="firstName" class="form-control" ng-model="userDetails.first_name" required />
+                    <span ng-show="form.firstName.$dirty && form.firstName.$error.required" class="help-block">First name is required</span>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': form.lastName.$dirty && form.lastName.$error }">
+                    <label for="lastName">Last name</label>
+                    <input type="text" name="lastName" id="lastName" class="form-control" ng-model="userDetails.last_name" required />
+                    <span ng-show="form.lastName.$dirty && form.lastName.$error.required" class="help-block">Last name is required</span>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': form.dateOfBirth.$dirty && form.dateOfBirth.$invalid }">
+                    <label for="dateOfBirth">Date of Birth</label>
+                    <md-datepicker id="dateOfBirth" name="dateOfBirth" ng-model="userDetails.date_of_birth"></md-datepicker>
+                    <span ng-show="form.dateOfBirth.$dirty && form.dateOfBirth.$invalid" class="help-block">Date of Birth is invalid</span>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': form.phone.$dirty && form.phone.$invalid }">
+                    <label for="phone">Phone</label>
+                    <input type="tel" pattern="[0-9]{10}" class="form-control" id="phone" name="phone" ng-model="userDetails.phone"/>
+                    <span ng-show="form.phone.$dirty && form.phone.$invalid" class="help-block">Phone number is invalid</span>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': form.address.$dirty && form.address.$invalid }">
+                    <label for="address">Address</label>
+                    <input type="text" class="form-control" id="address" name="address" ng-model="userDetails.address"/>
+                    <span ng-show="form.address.$dirty && form.address.$invalid" class="help-block">Address is invalid</span>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': form.gender.$dirty && form.gender.$invalid }">
+                    <label for="gender">Gender</label>
+                    <select ng-options="gender as gender.label for gender in genders track by gender.id" class="form-control" id="gender" name="gender" ng-model="selectedGender"></select>
+                    <span ng-show="form.gender.$dirty && form.gender.$invalid" class="help-block">Gender is invalid</span>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" bi-click="signUp()" ng-disabled="form.$invalid" class="btn btn-primary">Update</button>                </div>
+            </form>
+        </div>
+    </div>
+</md-dialog>

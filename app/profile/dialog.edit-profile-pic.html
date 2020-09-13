@@ -1,0 +1,28 @@
+<md-dialog>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Edit profile picture</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="assets/img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <div class="content-update_profile_picture">
+        <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+        <div class="col-md-6 col-md-offset-3">
+            <form name="form" role="form">
+                <div class="form-group" ng-class="{ 'has-error': form.profilePicture.$dirty && form.profilePicture.$invalid }">
+                    <label for="profilePicture">Profile Picture</label>
+                    <input type="file" id="profilePicture" name="profilePicture" accept="image/*" file-model = "userDetails.profile_picture">
+                    <span ng-show="form.profilePicture.$dirty && form.profilePicture.$invalid" class="help-block">Profile Picture is invalid</span>
+                </div>
+                <div style="display: flex; padding: 10px;">
+                    <button style="margin-right: 10px;" type="submit" bi-click="submit()" ng-disabled="form.$invalid || !userDetails.profile_picture" class="btn btn-primary btn-sm">Update</button>
+                    <button style="margin-left: 10px;" type="submit" bi-click="remove()" class="btn btn-default btn-sm">Remove</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</md-dialog>    
