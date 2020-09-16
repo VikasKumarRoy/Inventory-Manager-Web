@@ -9,7 +9,7 @@ Users would be of three types: Admin, Inventory Manager and Member of inventory.
 Managers are also a member of that inventory. All users would have access to the system with access
 to specific pages and specific functionalities based on their type.
 
-Backend Link - https://github.com/VikasKumarRoy/Inventory-Manager-API
+Backend - https://github.com/VikasKumarRoy/Inventory-Manager-API
 
 Screenshots
 ----------
